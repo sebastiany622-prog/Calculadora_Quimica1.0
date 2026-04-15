@@ -1,0 +1,15 @@
+# Local environments
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Project specific
+node_modules/
+dist/
+build/
+*.log
+
+# Backup files
+*.bak
+*.swp

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Moles y Avogadro - Calculadora Química</title>
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <header>
+    <a href="index.html" class="logo">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3v2M15 3v2M3 8h18M5 8v11a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8M10 14h4"/></svg>
+      Calculadora Química
+    </a>
+    <nav class="main-nav">
+      <a href="index.html">Inicio</a>
+      <a href="moles.html" class="active">Moles y Avogadro</a>
+      <a href="masa_molar.html">Masa Molar</a>
+      <a href="composicion.html">Composición</a>
+      <a href="formula.html">Fórmula</a>
+    </nav>
+  </header>
+
+  <main>
+    <div class="page-header">
+      <h1>Cálculo de Moles y Partículas</h1>
+      <p>Calcula moles, moléculas y átomos a partir de una masa en gramos usando la constante de Avogadro.</p>
+    </div>
+
+    <div class="calculator-interface">
+      <!-- Input for Mass -->
+      <div class="form-group">
+        <label for="mass-input">Masa de la muestra (gramos):</label>
+        <input type="number" id="mass-input" placeholder="Ej: 50.5" step="0.01" min="0">
+      </div>
+
+      <!-- Action Switchers -->
+      <label style="font-weight: 500; margin-bottom: -1rem; margin-top: 1rem; display:block">Fórmula del compuesto:</label>
+      <div class="action-buttons">
+          <button class="action-btn" onclick="setFormula('C8H12O4')">PBS (C8H12O4)</button>
+          <button class="action-btn" onclick="setFormula('H2O')">Agua (H2O)</button>
+          <button class="action-btn" onclick="setFormula('CO2')">Dióxido de Carbono</button>
+      </div>
+
+      <!-- Periodic Table Keyboard -->
+      <div class="periodic-table-keyboard" id="periodic-table-keys"></div>
+      
+      <!-- Number Keys -->
+      <div class="action-buttons" style="margin-top:-1rem;">
+        <button class="element-btn num-btn">0</button>
+        <button class="element-btn num-btn">1</button>
+        <button class="element-btn num-btn">2</button>
+        <button class="element-btn num-btn">3</button>
+        <button class="element-btn num-btn">4</button>
+        <button class="element-btn num-btn">5</button>
+        <button class="element-btn num-btn">6</button>
+        <button class="element-btn num-btn">7</button>
+        <button class="element-btn num-btn">8</button>
+        <button class="element-btn num-btn">9</button>
+        <button class="element-btn" onclick="document.getElementById('formula-input').value=''">Borrar</button>
+      </div>
+
+      <!-- Input Area -->
+      <div class="input-area">
+        <div class="input-wrapper">
+          <input type="text" id="formula-input" class="formula-input" placeholder="Fórmula (Ej: C8H12O4)">
+          <div class="input-actions">
+            <!-- Simulated icons -->
+            <button class="icon-btn" onclick="executeMoles()" title="Calcular">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 11 12 14 22 4"></polyline><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="results-area" id="results-section">
+       <h2>Resultados del Análisis</h2>
+       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; margin-top: 1rem;">
+           <div class="result-card">
+             <h3>Cantidad de Sustancia</h3>
+             <div class="value" id="result-moles">-</div>
+           </div>
+           <div class="result-card">
+             <h3>Total de Moléculas</h3>
+             <div class="value" id="result-molecules">-</div>
+           </div>
+           <div class="result-card">
+             <h3>Total de Átomos</h3>
+             <div class="value" id="result-atoms">-</div>
+           </div>
+       </div>
+    </div>
+
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

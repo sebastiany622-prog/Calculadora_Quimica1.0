@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculadora Química - PBS</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <header>
+    <div class="logo">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3v2M15 3v2M3 8h18M5 8v11a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8M10 14h4"/></svg>
+      Calculadora Química
+    </div>
+    <nav class="main-nav" id="nav-menu">
+      <button onclick="switchView('dashboard')" class="active" data-target="dashboard">Inicio</button>
+      <button onclick="switchView('moles')" data-target="moles">Moles/Avogadro</button>
+      <button onclick="switchView('masa')" data-target="masa">Masa Molar</button>
+      <button onclick="switchView('composicion')" data-target="composicion">Composición</button>
+      <button onclick="switchView('formula')" data-target="formula">Fórmula</button>
+    </nav>
+  </header>
+
+  <main>
+    <!-- View: Dashboard -->
+    <section id="view-dashboard" class="view-section active">
+      <div class="page-header">
+        <h1>Panel Principal</h1>
+        <p>Herramientas para cálculos químicos.</p>
+      </div>
+      <div class="pbs-card">
+        <div class="pbs-info">
+          <h2>Polibutileno Succinato (PBS)</h2>
+          <p>Compuesto alifático termoplástico. Unidad repetitiva: <strong>C8H12O4</strong></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- View: Moles -->
+    <section id="view-moles" class="view-section">
+      <div class="page-header">
+        <h1>Moles y Avogadro</h1>
+        <p>Convierte masa a moles y partículas.</p>
+      </div>
+      <div class="calculator-interface">
+        <div class="form-group">
+          <label>Masa (g):</label>
+          <input type="number" id="mass-input" placeholder="Ej: 50.5" step="0.01" min="0">
+        </div>
+        <div style="text-align: center; font-size: 0.85rem; color: var(--text-light); margin-bottom: -0.5rem; margin-top: 0.5rem;">Ejemplos rápidos (solamente ejemplos):</div>
+        <div class="action-buttons">
+          <button class="action-btn" onclick="setFormula('C8H12O4')">PBS</button>
+          <button class="action-btn" onclick="setFormula('H2O')">Agua</button>
+        </div>
+        <div class="periodic-table-keyboard keyboard-target"></div>
+        <div class="input-area">
+          <div class="input-wrapper">
+            <input type="text" id="formula-input-moles" class="formula-input" placeholder="Fórmula">
+            <button class="icon-btn" onclick="executeMoles()" style="color: var(--primary);">Calcular</button>
+            <button class="icon-btn" onclick="clearView('moles')" style="color: #ea4335;">Limpiar</button>
+          </div>
+        </div>
+        <div class="results-area" id="results-moles-section">
+          <div class="result-card"><h3>Moles</h3><div class="value" id="result-moles">-</div></div>
+          <div class="result-card"><h3>Moléculas</h3><div class="value" id="result-molecules">-</div></div>
+          <div class="result-card"><h3>Átomos</h3><div class="value" id="result-atoms">-</div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- View: Masa Molar -->
+    <section id="view-masa" class="view-section">
+      <div class="page-header">
+        <h1>Masa Molar</h1>
+      </div>
+      <div class="calculator-interface">
+        <div style="text-align: center; font-size: 0.85rem; color: var(--text-light); margin-bottom: -0.5rem; margin-top: 0.5rem;">Ejemplos rápidos (solamente ejemplos):</div>
+        <div class="action-buttons">
+          <button class="action-btn" onclick="setFormula('C8H12O4')">PBS</button>
+          <button class="action-btn" onclick="setFormula('C4H6O4')">Ac. Succínico</button>
+          <button class="action-btn" onclick="setFormula('C4H10O2')">Butanodiol</button>
+        </div>
+        <div class="periodic-table-keyboard keyboard-target"></div>
+        <div class="input-area">
+          <div class="input-wrapper">
+            <input type="text" id="formula-input-masa" class="formula-input" placeholder="Fórmula">
+            <button class="icon-btn" onclick="executeMasaMolar()" style="color: var(--primary);">Calcular</button>
+            <button class="icon-btn" onclick="clearView('masa')" style="color: #ea4335;">Limpiar</button>
+          </div>
+        </div>
+        <div class="results-area" id="results-masa-section">
+          <div class="result-card"><h3>Masa Molar</h3><div class="value" id="result-masa-val">-</div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- View: Composicion -->
+    <section id="view-composicion" class="view-section">
+      <div class="page-header">
+        <h1>Composición Porcentual</h1>
+      </div>
+      <div class="calculator-interface">
+        <div style="text-align: center; font-size: 0.85rem; color: var(--text-light); margin-bottom: -0.5rem; margin-top: 0.5rem;">Ejemplos rápidos (solamente ejemplos):</div>
+        <div class="action-buttons">
+          <button class="action-btn" onclick="setFormula('C8H12O4')">PBS</button>
+        </div>
+        <div class="periodic-table-keyboard keyboard-target"></div>
+        <div class="input-area">
+          <div class="input-wrapper">
+            <input type="text" id="formula-input-composicion" class="formula-input" placeholder="Fórmula">
+            <button class="icon-btn" onclick="executeComposicion()" style="color: var(--primary);">Calcular</button>
+            <button class="icon-btn" onclick="clearView('composicion')" style="color: #ea4335;">Limpiar</button>
+          </div>
+        </div>
+        <div class="results-area" id="results-comp-section">
+          <div id="composition-results" style="display: flex; gap: 10px; flex-wrap: wrap;"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- View: Formula -->
+    <section id="view-formula" class="view-section">
+      <div class="page-header">
+        <h1>Fórmula Empírica y Molecular</h1>
+      </div>
+      <div class="calculator-interface">
+        <div style="text-align: center; font-size: 0.85rem; color: var(--text-light); margin-bottom: -0.5rem; margin-top: 0.5rem;">Ejemplos rápidos (solamente ejemplos):</div>
+        <div class="action-buttons">
+          <button class="action-btn" onclick="document.getElementById('pct-c').value=55.81; document.getElementById('pct-h').value=6.98; document.getElementById('pct-o').value=37.21; document.getElementById('target-mass').value=172.18;">Precargar PBS</button>
+        </div>
+        <div style="display: flex; gap: 10px;">
+          <div class="form-group"><label>C %:</label><input type="number" id="pct-c"></div>
+          <div class="form-group"><label>H %:</label><input type="number" id="pct-h"></div>
+          <div class="form-group"><label>O %:</label><input type="number" id="pct-o"></div>
+        </div>
+        <div class="form-group">
+          <label>Masa Molar Objetivo (Opcional):</label>
+          <input type="number" id="target-mass">
+        </div>
+        <div style="display: flex; gap: 10px;">
+          <button class="primary-btn" onclick="executeEmpiricalFormula()">Calcular</button>
+          <button class="primary-btn" onclick="clearView('formula')" style="background: #ea4335;">Limpiar Todo</button>
+        </div>
+        <div class="results-area" id="results-formula-section">
+          <div class="result-card"><h3>Empírica</h3><div class="value" id="result-empirical">-</div></div>
+          <div class="result-card"><h3>Molecular</h3><div class="value" id="result-molecular">-</div></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
